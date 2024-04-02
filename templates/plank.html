@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bicep Curl Counter</title>
+    <title>Plank Timer</title>
     <style>
         body {
             background-color: #111;
@@ -61,23 +61,23 @@
     </style>
 </head>
 <body>
-    <h1>Bicep Curl Counter</h1>
+    <h1>Plank Timer</h1>
 
     <div class="exercise-info">
-        <h2>About Bicep Curls</h2>
-        <p>Bicep curls are a common strength training exercise that targets the biceps brachii muscle. They are typically performed with dumbbells, barbells, or resistance bands.</p>
-        <p>Performing bicep curls correctly helps to strengthen and tone the biceps, which are essential for various daily activities involving lifting and pulling.</p>
-        <img src="https://i0.wp.com/www.fitsw.com/blog/wp-content/uploads/2021/10/Strong-Arm-From-Bicep-Curls-and-Tricep-Extensions.png?fit=1246%2C722&ssl=1" alt="Bicep Curl" class="exercise-image" width="70%">
+        <h2>About Plank Exercise</h2>
+        <p>The plank is an isometric core strengthening exercise that involves maintaining a position similar to a push-up for an extended period.</p>
+        <p>Planks target multiple muscle groups, including the core, shoulders, arms, and glutes. They help improve core strength, stability, and posture.</p>
+        <img src="https://barbend.com/wp-content/uploads/2019/01/BarBend-Feature-Image-1200-x-675-2021-06-02T165505.056.jpg" alt="Plank Exercise" class="exercise-image">
     </div>
 
-    <button id="startButton">Start Bicep Curl Counter</button>
+    <button id="startButton">Start Plank Timer</button>
 
     <div id="output"></div>
 
     <script>
         document.getElementById("startButton").addEventListener("click", function() {
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/run_bicepcurl_script");
+            xhr.open("GET", "/run_plank_timer");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     document.getElementById("output").innerHTML = xhr.responseText;

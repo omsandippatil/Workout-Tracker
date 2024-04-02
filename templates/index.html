@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitness Exercise Counters</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .exercise-links {
+            margin-bottom: 30px;
+        }
+
+        .exercise-links button {
+            margin-right: 10px;
+        }
+
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function loadExerciseTemplate(templateName) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("output").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", `/${templateName}`);
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Fitness Exercise Counters</h1>
+
+    <div class="exercise-links">
+        <button onclick="loadExerciseTemplate('bicepcurl')">Bicep Curl Counter</button>
+        <button onclick="loadExerciseTemplate('plank')">Plank Timer</button>
+        <button onclick="loadExerciseTemplate('pushupcounter')">Pushup Counter</button>
+        <button onclick="loadExerciseTemplate('squats')">Squats Counter</button>
+    </div>
+
+    <div id="output"></div>
+</body>
+</html>
