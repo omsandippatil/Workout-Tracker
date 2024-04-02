@@ -19,29 +19,23 @@ def calculate_angle(a, b, c):
 
     return angle
 
-# Function to count bicep curls
-def count_bicep_curls(shoulder, elbow, wrist, stage, counter):
-    # Calculate angle
-    angle = calculate_angle(shoulder, elbow, wrist)
+# Function to count push-ups
+def count_pushups(nose, shoulders, stage, counter):
+    # Calculate distance between nose and shoulders
+    nose_shoulder_dist = np.linalg.norm(np.array(nose) - np.array(shoulders))
 
-    # Visualize angle
-    cv2.putText(image, str(angle),
-                tuple(np.multiply(elbow, [640, 480]).astype(int)),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                )
-
-    # Curl counter logic
-    if angle > 160 and stage == 'down':
+    # Push-up counter logic
+    if nose_shoulder_dist < 0.2 and stage == 'down':
         stage = 'up'
-    if angle < 30 and stage == 'up':
+    if nose_shoulder_dist > 0.4 and stage == 'up':
         stage = 'down'
         counter += 1
-        print("Bicep Curls Count:", counter)
+        print("Push-ups Count:", counter)
 
     return stage, counter
 
-bicep_counter = 0
-bicep_stage = 'down'
+pushup_counter = 0
+pushup_stage = 'down'
 
 cap = cv2.VideoCapture(0)
 
@@ -61,24 +55,22 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         try:
-            # Extract landmarks for bicep curls
+            # Extract landmarks for push-ups
             landmarks = results.pose_landmarks.landmark
+            nose = [landmarks[mp_pose.PoseLandmark.NOSE.value].x, landmarks[mp_pose.PoseLandmark.NOSE.value].y]
             left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
                              landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-            left_elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
-                          landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
-            left_wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
-                          landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
-           
-            # Count bicep curls
-            bicep_stage, bicep_counter = count_bicep_curls(left_shoulder, left_elbow, left_wrist, bicep_stage, bicep_counter)
-           
+            right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,
+                              landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+
+            # Count push-ups
+            pushup_stage, pushup_counter = count_pushups(nose, [left_shoulder, right_shoulder], pushup_stage, pushup_counter)
 
         except:
             pass
 
-        # Render bicep curl counter
-        cv2.putText(image, 'Bicep Curls Count: ' + str(bicep_counter),
+        # Render push-up counter
+        cv2.putText(image, 'Push-ups Count: ' + str(pushup_counter),
                     (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2, cv2.LINE_AA)
 
         mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
