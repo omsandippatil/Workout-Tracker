@@ -24,7 +24,7 @@ Welcome to PoseTrack, the workout tracker that's more attentive than your gym pa
 
 1. Clone the repository: `git clone https://github.com/username/posetrack.git`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Run the application: `python posetrack.py`
+3. Run the application: `python app.py`
 4. Flex those muscles and get ready to sweat (and maybe laugh a little too)!
 
 ## Usage 🏃‍♀️
