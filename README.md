@@ -40,4 +40,4 @@ Got jokes? Bugs? Feature ideas? We're all ears! Open an issue or pull request an
 
 ## License 📜
 
-This project is licensed under the [MIT License](LICENSE). Feel free to share the love and spread the fitness fun!
+This project is licensed under the [MIT License](License). Feel free to share the love and spread the fitness fun!
